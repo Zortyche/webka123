@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Сайт - Главная страница</title>
+  <meta name="description" content="Описание сайта">
+  <meta name="keywords" content="ключевые слова">
+  <meta name="author" content="Автор">
+  
+  <link rel="stylesheet" href="script/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <!-- Firebase init (module) -->
+  <script type="module" src="script/firebase-init.js"></script>
+</head>
+
+<body class="font-sans min-h-screen">
+
+<header class="relative z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4">
+    <div class="search-container p-3 rounded-2xl w-full">
+      <div class="flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0 md:space-x-4">
+         <!-- Логотип -->
+         <div id="logoSection" class="flex items-center space-x-3 logo-section logo-default">
+           <div id="logoIcon" class="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center logo-icon">
+             <span class="text-white font-bold text-sm">SG</span>
+           </div>
+           <span class="text-lg font-bold text-gray-900 logo-text logo-full">Coffe Break</span>
+           <div id="welcomeMessage" class="hidden welcome-message">
+             <span class="welcome-text">Добро пожаловать, <span id="welcomeUserName" class="font-semibold text-orange-400"></span>! 👋</span>
+           </div>
+         </div>
+        
+        <!-- Поиск -->
+        <div class="flex-1 max-w-2xl">
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg class="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <input type="text" id="simple-search"
+              class="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-sm"
+              placeholder="Поиск...">
+          </div>
+        </div>
+
+        <!-- Кнопки действий -->
+        <div class="flex items-center space-x-3">
+          <button onclick="window.location.href='./contacts.html'"
+                  class="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 btn btn-glow shadow-lg text-sm whitespace-nowrap">
+            Персонал
+          </button>
+          <div id="headerControls" class="relative"></div>
+
+          <!-- Login/Registration -->
+          <div id="registrationSection" class="relative">
+            <button id="filterDropdownButton"
+                    class="px-4 py-2 bg-white hover:bg-gray-100 text-gray-900 rounded-xl font-semibold transition-all duration-300 shadow-lg text-sm rippleable">
+              Войти/Регистрация
+            </button>
+
+            <div id="registerDropdown"
+                 class="hidden absolute right-0 top-full mt-2 w-72 bg-gray-800 rounded-2xl shadow-2xl p-4 z-50 border border-gray-700">
+              
+              <!-- Tabs для переключения между Login и Registration -->
+              <div class="flex mb-4 border-b border-gray-700">
+                <button id="loginTab" class="flex-1 py-2 text-center text-sm font-semibold text-orange-400 border-b-2 border-orange-500 transition-colors">
+                  Вход
+                </button>
+                <button id="registerTab" class="flex-1 py-2 text-center text-sm font-semibold text-gray-400 hover:text-white transition-colors">
+                  Регистрация
+                </button>
+              </div>
+
+              <!-- Login Form -->
+              <div id="loginFormContainer" class="space-y-3">
+                <h2 class="text-lg font-bold mb-3 text-center text-white">Войти в аккаунт</h2>
+                <form id="loginForm" class="space-y-3">
+                  <input type="email" id="loginEmail" placeholder="📧 Электронная почта" required
+                         class="w-full p-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-sm">
+                  <input type="password" id="loginPassword" placeholder="🔒 Пароль" required
+                         class="w-full p-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-sm">
+                  <button type="submit"
+                          class="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 btn btn-glow text-sm">
+                    🔑 Войти
+                  </button>
+                </form>
+              </div>
+
+              <!-- Registration Form -->
+              <div id="registerFormContainer" class="hidden space-y-3">
+                <h2 class="text-lg font-bold mb-3 text-center text-white">Создать аккаунт</h2>
+
+                <div class="flex flex-col items-center mb-3">
+                  <img id="avatarPreview" src="https://via.placeholder.com/150" alt="Avatar Preview"
+                       class="w-16 h-16 rounded-full object-cover border-4 border-blue-500 mb-2">
+                  <label for="avatarUpload"
+                         class="w-full text-center cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-xl py-2 text-xs text-white font-medium transition-colors duration-300">
+                    📸 Выберите аватар
+                  </label>
+                  <input id="avatarUpload" type="file" accept="image/*" class="hidden">
+                </div>
+
+                <form id="registerForm" class="space-y-3">
+                  <input type="text" id="firstName" placeholder="👤 Имя" required
+                         class="w-full p-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-sm">
+                  <input type="text" id="lastName" placeholder="👥 Фамилия" required
+                         class="w-full p-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-sm">
+                  <input type="email" id="email" placeholder="📧 Электронная почта" required
+                         class="w-full p-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-sm">
+                  <input type="password" id="password" placeholder="🔒 Пароль" required
+                         class="w-full p-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-sm">
+                  <input type="password" id="confirmPassword" placeholder="✅ Подтвердите пароль" required
+                         class="w-full p-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-sm">
+                  <button type="submit"
+                          class="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 btn btn-glow text-sm">
+                    🚀 Зарегистрироваться
+                  </button>
+                </form>
+              </div>
+            </div> 
+          </div> 
+        </div> 
+      </div> 
+    </div>
+  </div>
+</header>
+
+<!-- Основной контент -->
+<main class="relative z-10">
+  <!-- Герой секция -->
+  <section class="relative py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="slideshow-container floating-element relative rounded-2xl overflow-hidden shadow-2xl">
+          <!-- Карусель изображений -->
+          <div id="carousel" class="relative w-full h-96">
+            <!-- Контейнер для изображений -->
+            <div class="carousel-track flex transition-transform duration-500 ease-in-out h-full">
+              <!-- Изображения будут добавлены динамически -->
+            </div>
+            
+            <!-- Кнопка "Назад" -->
+            <button id="carouselPrev" 
+                    class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg transition-all duration-300 z-10 opacity-70 hover:opacity-100 hover:scale-110">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            
+            <!-- Кнопка "Вперед" -->
+            <button id="carouselNext" 
+                    class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg transition-all duration-300 z-10 opacity-70 hover:opacity-100 hover:scale-110">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+            
+            <!-- Индикаторы слайдов -->
+            <div id="carouselIndicators" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+              <!-- Индикаторы будут добавлены динамически -->
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-8">
+          <div>
+            <h1 class="text-5xl lg:text-6xl font-bold leading-tight">
+              <span class="text-gradient">Добро пожаловать</span><br>
+              <span class="text-gray-900">на наш сайт!</span>
+            </h1>
+            <div class="w-24 h-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full mt-4"></div>
+          </div>
+          
+          <div class="space-y-6">
+            <p class="text-xl text-gray-700 leading-relaxed">
+              🌟 Добро пожаловать! Мы хотим вас видеть с улыбкой на лице.
+            </p>
+            <p class="text-xl text-gray-700 leading-relaxed">
+              ⭐ Это лучшая кофеййня в городе Coffe Break, приходите к нам мы будем рады вас видеть  .
+            </p>
+          </div>
+          
+          <!-- Призывы к действию -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <a href="page1.html"
+               class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold text-lg transition-all duration-300 btn btn-glow shadow-lg">
+              🚀 Начать
+              <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+            <a href="page2.html"
+               class="inline-flex items-center justify-center px-8 py-4 text-gray-900 rounded-xl font-semibold text-lg transition-all duration-300 btn secondary shadow-lg">
+              🗺️ Узнать больше
+              <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Преимущества -->
+
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">Наши преимущества</h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">Почему выбирают нас</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="scroll-animate stat-card card-hover rounded-2xl p-8 text-center delay-100">
+          <div class="feature-icon mx-auto">
+            <span class="text-2xl">⭐</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Качество</h3>
+          <p class="text-gray-700 leading-relaxed">
+            Мы гарантируем высокое качество наших услуг
+          </p>
+        </div>
+        
+        <div class="scroll-animate stat-card card-hover rounded-2xl p-8 text-center delay-200">
+          <div class="feature-icon mx-auto">
+            <span class="text-2xl">⚡</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Скорость</h3>
+          <p class="text-gray-700 leading-relaxed">
+            Быстрое выполнение задач и оперативная поддержка
+          </p>
+        </div>
+        
+        <div class="scroll-animate stat-card card-hover rounded-2xl p-8 text-center delay-300">
+          <div class="feature-icon mx-auto">
+            <span class="text-2xl">🔒</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Надежность</h3>
+          <p class="text-gray-700 leading-relaxed">
+            Надежные решения и стабильная работа
+          </p>
+        </div>
+        
+        <div class="scroll-animate stat-card card-hover rounded-2xl p-8 text-center delay-400">
+          <div class="feature-icon mx-auto">
+            <span class="text-2xl">❤️</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Поддержка</h3>
+          <p class="text-gray-700 leading-relaxed">
+            Круглосуточная поддержка и консультации
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Футер -->
+<footer class="bg-white-900 border-white-800 py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <span class="text-white font-bold text-2xl">SN</span>
+      </div>
+      <p class="text-gray-400 text-lg">&copy; 2025 Coffe Break. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="script/script.js"></script>
+
+</body>
+</html>

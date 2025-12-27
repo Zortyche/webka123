@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Coffe Break - Меню</title>
+  <meta name="description" content="Наше меню - напитки и выпечка">
+  <meta name="keywords" content="кофе, кофейня, меню, Coffe Break, напитки, выпечка">
+  <meta name="author" content="Coffe Break">
+  <meta property="og:title" content="Coffe Break — Меню">
+  <meta property="og:description" content="Наше меню — напитки и свежая выпечка.">
+  <meta property="og:image" content="img/img1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Coffe Break — Меню">
+  <meta name="twitter:description" content="Наше меню — напитки и свежая выпечка.">
+  <meta name="twitter:image" content="img/img1.jpg">
+  
+  <link rel="stylesheet" href="script/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <script type="module" src="script/firebase-init.js"></script>
+</head>
+
+<body class="font-sans min-h-screen">
+
+<header class="relative z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4">
+    <div class="search-container p-3 rounded-2xl w-full">
+      <div class="flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0 md:space-x-4">
+         <!-- Логотип -->
+         <div id="logoSection" class="flex items-center space-x-3 logo-section logo-default">
+           <a href="Untitled-1.html" class="flex items-center space-x-3">
+             <div id="logoIcon" class="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center logo-icon">
+               <span class="text-white font-bold text-sm">SG</span>
+             </div>
+             <span class="text-lg font-bold text-gray-900 logo-text logo-full">Coffe Break</span>
+             <span class="text-lg font-bold text-gray-900 logo-text logo-short">CB</span>
+           </a>
+         </div>
+        
+        <!-- Навигация -->
+        <div class="flex items-center space-x-4">
+          <a href="Untitled-1.html" 
+             class="px-4 py-2 text-gray-700 hover:text-orange-500 font-medium transition-colors duration-300">
+            Главная
+          </a>
+          <a href="Untitled-3.html" 
+             class="px-4 py-2 text-orange-500 font-semibold border-b-2 border-orange-500">
+            Меню
+          </a>
+          <button onclick="window.location.href='./Untitled-4.html'"
+                  class="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 btn btn-glow shadow-lg text-sm whitespace-nowrap">
+            Персонал
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Основной контент -->
+<main class="relative z-10">
+  <section class="relative py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h1 class="text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          <span class="text-gradient-orange">Наше меню</span>
+        </h1>
+        <div class="w-32 h-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full mx-auto"></div>
+        <p class="text-xl text-gray-600 mt-6">Вкусные напитки и свежая выпечка</p>
+      </div>
+
+      <!-- Напитки -->
+      <div class="mb-20">
+        <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">☕ Напитки</h2>
+        <div id="drinksContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="text-center p-4">
+            <div class="animate-pulse">
+              <div class="h-48 bg-gray-200 rounded-xl mb-4"></div>
+              <div class="h-6 bg-gray-200 rounded mb-2"></div>
+              <div class="h-4 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Выпечка -->
+      <div class="mb-20">
+        <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">🍰 Выпечка</h2>
+        <div id="pastriesContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="text-center p-4">
+            <div class="animate-pulse">
+              <div class="h-48 bg-gray-200 rounded-xl mb-4"></div>
+              <div class="h-6 bg-gray-200 rounded mb-2"></div>
+              <div class="h-4 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Футер -->
+<footer class="bg-white-900 border-white-800 py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <span class="text-white font-bold text-2xl">SN</span>
+      </div>
+      <p class="text-gray-400 text-lg">&copy; 2025 Coffe Break. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Загрузка данных о товарах из Firebase
+document.addEventListener('DOMContentLoaded', async function() {
+  const drinksContainer = document.getElementById('drinksContainer');
+  const pastriesContainer = document.getElementById('pastriesContainer');
+  
+  // Ожидаем загрузки Firebase
+  if (!window.firebase || !window.firebase.db2) {
+    await new Promise(resolve => {
+      if (window.firebaseReady) {
+        window.firebaseReady.then(resolve).catch(resolve);
+      } else {
+        setTimeout(resolve, 1000);
+      }
+    });
+  }
+  
+  const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js");
+  
+  try {
+    const db2 = window.firebase?.db2;
+    if (!db2) {
+      throw new Error('Вторая база данных не инициализирована');
+    }
+    
+    // Загрузка напитков
+    try {
+      const drinksSnapshot = await getDocs(collection(db2, 'drinks'));
+      drinksContainer.innerHTML = '';
+      
+      if (drinksSnapshot.empty) {
+        drinksContainer.innerHTML = '<p class="text-gray-600 text-center col-span-full">Напитки пока не добавлены</p>';
+      } else {
+        drinksSnapshot.forEach((doc) => {
+          const data = doc.data();
+          const card = createProductCard(data);
+          drinksContainer.appendChild(card);
+        });
+      }
+    } catch (drinksError) {
+      console.error('Ошибка загрузки напитков:', drinksError);
+      drinksContainer.innerHTML = '<p class="text-red-600 text-center col-span-full">Ошибка загрузки напитков</p>';
+    }
+    
+    // Загрузка выпечки
+    try {
+      const pastriesSnapshot = await getDocs(collection(db2, 'pastries'));
+      pastriesContainer.innerHTML = '';
+      
+      if (pastriesSnapshot.empty) {
+        pastriesContainer.innerHTML = '<p class="text-gray-600 text-center col-span-full">Выпечка пока не добавлена</p>';
+      } else {
+        pastriesSnapshot.forEach((doc) => {
+          const data = doc.data();
+          const card = createProductCard(data);
+          pastriesContainer.appendChild(card);
+        });
+      }
+    } catch (pastriesError) {
+      console.error('Ошибка загрузки выпечки:', pastriesError);
+      pastriesContainer.innerHTML = '<p class="text-red-600 text-center col-span-full">Ошибка загрузки выпечки</p>';
+    }
+    
+  } catch (error) {
+    console.error('Ошибка загрузки данных:', error);
+    drinksContainer.innerHTML = '<p class="text-red-600 text-center col-span-full">Ошибка подключения к базе данных</p>';
+    pastriesContainer.innerHTML = '<p class="text-red-600 text-center col-span-full">Ошибка подключения к базе данных</p>';
+  }
+});
+
+// Создание карточки товара
+function createProductCard(data) {
+  const card = document.createElement('div');
+  card.className = 'scroll-animate stat-card rounded-2xl p-6 text-center';
+  
+  const name = data.name || 'Без названия';
+  const description = data.description || '';
+  const price = data.price ? `${data.price} ₽` : '';
+  const image = data.image || '';
+  
+  card.innerHTML = `
+    ${image ? `<img src="${image}" alt="${name}" class="w-full h-48 object-cover rounded-xl mb-4">` : ''}
+    <h3 class="text-2xl font-bold text-gray-900 mb-3">${name}</h3>
+    ${description ? `<p class="text-gray-700 mb-4">${description}</p>` : ''}
+    ${price ? `<p class="text-2xl font-bold text-orange-500">${price}</p>` : ''}
+  `;
+  
+  return card;
+}
+</script>
+
+<script src="script/script.js"></script>
+
+</body>
+</html>
+

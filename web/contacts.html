@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Coffe Break - Персонал</title>
+  <meta name="description" content="Наша команда - профессионалы своего дела">
+  <meta name="keywords" content="персонал, команда, Coffe Break, бариста, сотрудники">
+  <meta name="author" content="Coffe Break">
+  <meta property="og:title" content="Coffe Break — Персонал">
+  <meta property="og:description" content="Познакомьтесь с нашей командой профессионалов.">
+  <meta property="og:image" content="img/img3.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Coffe Break — Персонал">
+  <meta name="twitter:description" content="Познакомьтесь с нашей командой профессионалов.">
+  <meta name="twitter:image" content="img/img3.jpg">
+  
+  <link rel="stylesheet" href="script/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <script type="module" src="script/firebase-init.js"></script>
+</head>
+
+<body class="font-sans min-h-screen">
+
+<header class="relative z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4">
+    <div class="search-container p-3 rounded-2xl w-full">
+      <div class="flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0 md:space-x-4">
+         <!-- Логотип -->
+         <div id="logoSection" class="flex items-center space-x-3 logo-section logo-default">
+           <a href="Untitled-1.html" class="flex items-center space-x-3">
+             <div id="logoIcon" class="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center logo-icon">
+               <span class="text-white font-bold text-sm">SG</span>
+             </div>
+             <span class="text-lg font-bold text-gray-900 logo-text logo-full">Coffe Break</span>
+             <span class="text-lg font-bold text-gray-900 logo-text logo-short">CB</span>
+           </a>
+         </div>
+        
+        <!-- Навигация -->
+        <div class="flex items-center space-x-4">
+          <a href="Untitled-1.html" 
+             class="px-4 py-2 text-gray-700 hover:text-orange-500 font-medium transition-colors duration-300">
+            Главная
+          </a>
+          <a href="Untitled-3.html" 
+             class="px-4 py-2 text-gray-700 hover:text-orange-500 font-medium transition-colors duration-300">
+            Меню
+          </a>
+          <a href="Untitled-4.html" 
+             class="px-4 py-2 text-orange-500 font-semibold border-b-2 border-orange-500">
+            Персонал
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Основной контент -->
+<main class="relative z-10">
+  <section class="relative py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h1 class="text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          <span class="text-gradient-orange">Наша команда</span>
+        </h1>
+        <div class="w-32 h-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full mx-auto"></div>
+        <p class="text-xl text-gray-600 mt-6">Профессионалы, которые создают атмосферу</p>
+      </div>
+
+      <!-- Сотрудники -->
+      <div id="staffContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="text-center p-4">
+          <div class="animate-pulse">
+            <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4"></div>
+            <div class="h-6 bg-gray-200 rounded mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Футер -->
+<footer class="bg-white-900 border-white-800 py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <span class="text-white font-bold text-2xl">SN</span>
+      </div>
+      <p class="text-gray-400 text-lg">&copy; 2025 Coffe Break. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Загрузка данных о сотрудниках из Firebase
+document.addEventListener('DOMContentLoaded', async function() {
+  const staffContainer = document.getElementById('staffContainer');
+  
+  // Ожидаем загрузки Firebase
+  if (!window.firebase || !window.firebase.db2) {
+    await new Promise(resolve => {
+      if (window.firebaseReady) {
+        window.firebaseReady.then(resolve).catch(resolve);
+      } else {
+        setTimeout(resolve, 1000);
+      }
+    });
+  }
+  
+  const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js");
+  
+  try {
+    const db2 = window.firebase?.db2;
+    if (!db2) {
+      throw new Error('Вторая база данных не инициализирована');
+    }
+    
+    // Загрузка сотрудников
+    const staffSnapshot = await getDocs(collection(db2, 'staff'));
+    staffContainer.innerHTML = '';
+    
+    if (staffSnapshot.empty) {
+      staffContainer.innerHTML = '<p class="text-gray-600 text-center col-span-full">Информация о сотрудниках пока не добавлена</p>';
+    } else {
+      staffSnapshot.forEach((doc) => {
+        const data = doc.data();
+        const card = createStaffCard(data);
+        staffContainer.appendChild(card);
+      });
+    }
+    
+  } catch (error) {
+    console.error('Ошибка загрузки сотрудников:', error);
+    staffContainer.innerHTML = '<p class="text-red-600 text-center col-span-full">Ошибка подключения к базе данных</p>';
+  }
+});
+
+// Создание карточки сотрудника
+function createStaffCard(data) {
+  const card = document.createElement('div');
+  card.className = 'scroll-animate stat-card rounded-2xl p-6 text-center';
+  
+  const firstName = data.firstName || '';
+  const lastName = data.lastName || '';
+  const fullName = `${firstName} ${lastName}`.trim() || 'Без имени';
+  const position = data.position || '';
+  const photo = data.photo || '';
+  
+  card.innerHTML = `
+    ${photo ? `<img src="${photo}" alt="${fullName}" class="w-32 h-32 rounded-full object-cover mx-auto mb-4 border-4 border-orange-500">` : 
+      `<div class="w-32 h-32 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 mx-auto mb-4 flex items-center justify-center">
+        <span class="text-white text-4xl font-bold">${firstName.charAt(0) || '?'}${lastName.charAt(0) || ''}</span>
+      </div>`}
+    <h3 class="text-2xl font-bold text-gray-900 mb-2">${fullName}</h3>
+    ${position ? `<p class="text-gray-600 text-lg">${position}</p>` : ''}
+  `;
+  
+  return card;
+}
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
